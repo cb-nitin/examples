@@ -38,7 +38,7 @@ steps:
   #     - yarn test
  
   package:
-    image: codefresh/serverless:1.28
+    image: softinstigate/serverless
     title: package serverless service
     working_directory: ${{main_clone}}/aws-node-simple-http-endpoint
     commands:
@@ -52,9 +52,9 @@ steps:
   #     - aws --profile ${AWS_PROFILE} --region ${AWS_REGION} s3 cp ${PACKAGE} s3://${AWS_BUCKET}/${{CF_BRANCH}}/${{CF_SHORT_REVISION}}/ --recursive
  
   deploy:
-    image: codefresh/serverless:1.28
+    image: softinstigate/serverless
     title: deploy to AWS with serverless framework
-    working_directory: ${{main_clone}}/aws-node-simple-http-endpoint
+    working_directory: ${{main_clone}}/aws-python-simple-http-endpoint
     commands:
       - serverless deploy --conceal --verbose --stage ${AWS_STAGE} --region ${AWS_REGION}
  
