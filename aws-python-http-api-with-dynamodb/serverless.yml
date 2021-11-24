@@ -4,6 +4,8 @@ frameworkVersion: '2'
 provider:
   name: aws
   runtime: python3.8
+  deploymentBucket:
+    name: cb-infra-us-e1-seenivasan-test-s3-bucket
   environment:
     DYNAMODB_TABLE: ${self:service}-${sls:stage}
   httpApi:
@@ -73,3 +75,6 @@ resources:
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
+
+plugins:
+  - serverless-deployment-bucket

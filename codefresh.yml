@@ -40,7 +40,7 @@ steps:
   package:
     image: softinstigate/serverless
     title: package serverless service
-    working_directory: ${{main_clone}}/aws-node-simple-http-endpoint
+    working_directory: ${{main_clone}}/aws-python-http-api-with-dynamodb
     commands:
       - serverless package --stage ${AWS_STAGE} --region ${AWS_REGION}
  
@@ -54,7 +54,7 @@ steps:
   deploy:
     image: softinstigate/serverless
     title: deploy to AWS with serverless framework
-    working_directory: ${{main_clone}}/aws-python-simple-http-endpoint
+    working_directory: ${{main_clone}}/aws-python-http-api-with-dynamodb
     commands:
       - serverless deploy --conceal --verbose --stage ${AWS_STAGE} --region ${AWS_REGION}
  
