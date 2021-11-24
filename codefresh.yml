@@ -37,12 +37,12 @@ steps:
   #     - yarn lint
   #     - yarn test
  
-  package:
-    image: softinstigate/serverless
-    title: package serverless service
-    working_directory: ${{main_clone}}/aws-python-http-api-with-dynamodb
-    commands:
-      - serverless package --stage ${AWS_STAGE} --region ${AWS_REGION}
+  # package:
+  #   image: softinstigate/serverless
+  #   title: package serverless service
+  #   working_directory: ${{main_clone}}/aws-python-http-api-with-dynamodb
+  #   commands:
+  #     - serverless package --stage ${AWS_STAGE} --region ${AWS_REGION}
  
   # archive:
   #   image: mesosphere/aws-cli
@@ -51,11 +51,12 @@ steps:
   #   commands:
   #     - aws --profile ${AWS_PROFILE} --region ${AWS_REGION} s3 cp ${PACKAGE} s3://${AWS_BUCKET}/${{CF_BRANCH}}/${{CF_SHORT_REVISION}}/ --recursive
  
-  deploy:
+  package-and-deploy:
     image: softinstigate/serverless
     title: deploy to AWS with serverless framework
     working_directory: ${{main_clone}}/aws-python-http-api-with-dynamodb
     commands:
+      - npm i serverless-deployment-bucket
       - serverless deploy --conceal --verbose --stage ${AWS_STAGE} --region ${AWS_REGION}
  
   # integration:
