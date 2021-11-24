@@ -21,7 +21,8 @@ steps:
       - exit 1
     when:
       condition:
-        whenVarExists: 'includes("${{DELETE_STACK}}", "{{DELETE_STACK}}") == false'
+        all:
+          whenVarExists: 'includes("${{DELETE_STACK}}", "{{DELETE_STACK}}") == false'
   # verify_branch:
   #   image: alpine:3.7
   #   title: fail on master branch
