@@ -10,6 +10,18 @@ steps:
     revision: "${{CF_BRANCH}}"
     git: "github"
 
+  delete:
+    image: softinstigate/serverless
+    title: deploy to AWS with serverless framework
+    working_directory: ${{main_clone}}/aws-python-http-api-with-dynamodb
+    commands:
+      - npm i serverless-deployment-bucket
+      - serverless remove --conceal --verbose --stage ${AWS_STAGE} --region ${AWS_REGION}
+      - echo "Exiting status 1 to skip remaining steps"
+      - exit 1
+    when:
+      condition:
+        whenVarExists: 'includes("${{DELETE_STACK}}", "{{DELETE_STACK}}") == false'
   # verify_branch:
   #   image: alpine:3.7
   #   title: fail on master branch
